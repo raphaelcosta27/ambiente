@@ -27,3 +27,4 @@
 /mysql-data/server-key.pem
 /mysql-data/undo_001
 /mysql-data/undo_002
+.idea/ambiente.iml
