@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./www/:/var/www/html/public/
+      - ./apache/:/etc/apache2/local/
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/public
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.10
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "YourMSSQLPassw0rd"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+      MSSQL_DB: "mssql_database_name"
+      MSSQL_USER: "mssql_user"
+      MSSQL_PASSWORD: "mssql_user_password"
+    ports:
+      - "1433:1433"
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.11
+    volumes:
+      - ./sqlserver-data/:/var/opt/mssql
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "YourMySQLRootPassw0rd"
+      MYSQL_DATABASE: "mysql_database_name"
+      MYSQL_USER: "mysql_user"
+      MYSQL_PASSWORD: "mysql_user_password"
+    ports:
+      - "3306:3306"
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.13
+    volumes:
+      - ./mysql-data/:/var/lib/mysql
+
+networks:
+  mynetwork:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  sqlserver-data:
+  mysql-data:
