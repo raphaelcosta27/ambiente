@@ -24,6 +24,12 @@ RUN apt-get install -y curl software-properties-common && \
     curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs
 
+# Instalando Xdebug
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+# Configurando Xdebug
+COPY xdebug.ini /usr/local/etc/php/conf.d/
 # Configuração do Apache para SSL
 #COPY ./apache/my-ssl.conf /etc/apache2/sites-available/
 #RUN a2enmod ssl && a2ensite my-ssl.conf

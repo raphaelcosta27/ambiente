@@ -47,6 +47,25 @@ services:
     volumes:
       - ./mysql-data/:/var/lib/mysql
 
+  node:
+    image: node:14
+    working_dir: /app
+    volumes:
+        - ./app/:/app
+    ports:
+        - "3000:3000"  # Mapeamento da porta
+    networks:
+        mynetwork:
+            ipv4_address: 172.20.0.14
+  
+  redis:
+    image: redis:latest
+    ports:
+        - "6379:6379"
+    networks:
+        mynetwork:
+            ipv4_address: 172.20.0.15
+
 networks:
   mynetwork:
     driver: bridge
