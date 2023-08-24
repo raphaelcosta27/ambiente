@@ -22,7 +22,7 @@
 /mysql-data/ibdata1
 /mysql-data/mysql.ibd
 /mysql-data/mysql.sock
-/mysql-data/private_key.pem
+/mysql-data/private_key.pems
 /mysql-data/public_key.pem
 /mysql-data/server-cert.pem
 /mysql-data/server-key.pem
